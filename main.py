@@ -1,43 +1,41 @@
 import logging
 from flask import Flask, request, jsonify
 from pydantic import BaseModel, ValidationError
+from coreenginesvc import handle_query
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG, 
+logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(levelname)s - %(message)s',
                     filename='agent.log', filemode='a')
 
 app = Flask(__name__)
 
-
 class QueryResponse(BaseModel):
     query: str
     answer: str
 
-
 @app.route('/query', methods=['POST'])
 def create_query():
     try:
-        # Extract the question from the request data
+        # Extract query from request
         request_data = request.json
         query = request_data.get('query')
-        
-        # Log the question
+
+        # Log the query
         logging.info(f"Received query: {query}")
-        
-        # Here, you can implement your logic to generate an answer for the given question.
-        # For simplicity, we'll just echo the question back in the answer.
-        answer = "14"
-        
-        # Log the answer
+
+        # Handle the query
+        answer = handle_query(query)
+
+        # Log the response
         logging.info(f"Generated answer: {answer}")
-        
+
         # Create the response model
         response = QueryResponse(query=query, answer=answer)
-        
         return jsonify(response.dict())
-    
+
     except ValidationError as e:
+        logging.error(f"Validation error: {e}")
         return jsonify({"error": e.errors()}), 400
 
 if __name__ == "__main__":

@@ -1,0 +1,524 @@
+2024-12-12 10:47:32,405 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-12 10:47:32,410 INFO - [33mPress CTRL+C to quit[0m
+2024-12-12 13:57:42,399 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-12-12 13:57:42,399 INFO - [33mPress CTRL+C to quit[0m
+2024-12-12 14:02:42,404 INFO - Received query: tell me the cluster info
+2024-12-12 14:02:42,406 ERROR - Exception on /query [POST]
+Traceback (most recent call last):
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/main.py", line 27, in create_query
+    answer = handle_query(query)
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/queryprocessor.py", line 12, in handle_query
+    command = infer_kubectl_command_with_gpt4(query)
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/openaiclient.py", line 35, in infer_kubectl_command_with_gpt4
+    response = openai.ChatCompletion.create(
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/venv/lib/python3.10/site-packages/openai/lib/_old_api.py", line 39, in __call__
+    raise APIRemovedInV1(symbol=self._symbol)
+openai.lib._old_api.APIRemovedInV1: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+
+2024-12-12 14:02:42,411 INFO - 127.0.0.1 - - [12/Dec/2024 14:02:42] "[35m[1mPOST /query HTTP/1.1[0m" 500 -
+2024-12-12 14:06:31,798 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8000
+2024-12-12 14:06:31,799 INFO - [33mPress CTRL+C to quit[0m
+2024-12-12 14:06:37,908 INFO - Received query: tell me the cluster info
+2024-12-12 14:06:37,937 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-12 14:06:37,937 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: tell me the cluster info"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-12 14:06:37,937 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-12 14:06:37,946 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-12 14:06:38,554 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-12 14:06:38,556 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=189 request_id=req_63a5ec3a312c726ba87c5c927a4f44f9 response_code=200
+2024-12-12 14:06:38,559 INFO - Inferred Command from Open AI: kubectl cluster-info
+2024-12-12 14:06:38,559 INFO - Executing command: kubectl cluster-info
+2024-12-12 14:06:38,739 INFO - Generated answer: Kubernetes control plane is running at https://127.0.0.1:59706
+CoreDNS is running at https://127.0.0.1:59706/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+2024-12-12 14:06:38,740 INFO - 127.0.0.1 - - [12/Dec/2024 14:06:38] "POST /query HTTP/1.1" 200 -
+2024-12-12 14:08:30,534 INFO - Received query: tell me the cluster info
+2024-12-12 14:08:30,536 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-12 14:08:30,536 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: tell me the cluster info"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-12 14:08:30,537 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-12 14:08:30,538 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-12 14:08:31,169 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-12 14:08:31,172 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=234 request_id=req_a63cc742054a2a25dfe6bae9ff3ea965 response_code=200
+2024-12-12 14:08:31,173 INFO - Inferred Command from Open AI: kubectl cluster-info
+2024-12-12 14:08:31,173 INFO - Executing command: kubectl cluster-info
+2024-12-12 14:08:31,341 INFO - Generated answer: Kubernetes control plane is running at https://127.0.0.1:59706
+CoreDNS is running at https://127.0.0.1:59706/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+2024-12-12 14:08:31,342 INFO - 127.0.0.1 - - [12/Dec/2024 14:08:31] "POST /query HTTP/1.1" 200 -
+2024-12-12 14:08:58,083 INFO - Received query: How many pods are in the default namespace?
+2024-12-12 14:08:58,084 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-12 14:08:58,084 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: How many pods are in the default namespace?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-12 14:08:58,085 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-12 14:08:58,087 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-12 14:08:58,758 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-12 14:08:58,760 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=343 request_id=req_63c2d280251697e8d5e6f101677e0d93 response_code=200
+2024-12-12 14:08:58,760 INFO - Inferred Command from Open AI: kubectl get pods --namespace=default --no-headers | wc -l
+2024-12-12 14:08:58,764 INFO - Executing command: kubectl get pods --namespace=default --no-headers | wc -l
+2024-12-12 14:08:58,952 INFO - Generated answer: 1
+2024-12-12 14:08:58,952 INFO - 127.0.0.1 - - [12/Dec/2024 14:08:58] "POST /query HTTP/1.1" 200 -
+2024-12-12 14:09:16,625 INFO - Received query: How many running pods?
+2024-12-12 14:09:16,626 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-12 14:09:16,626 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: How many running pods?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-12 14:09:16,627 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-12 14:09:16,628 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-12 14:09:17,429 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-12 14:09:17,431 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=495 request_id=req_2af1f40536448b88bfd989264488878f response_code=200
+2024-12-12 14:09:17,431 INFO - Inferred Command from Open AI: kubectl get pods --field-selector=status.phase=Running --no-headers | wc -l
+2024-12-12 14:09:17,431 INFO - Executing command: kubectl get pods --field-selector=status.phase=Running --no-headers | wc -l
+2024-12-12 14:09:17,602 INFO - Generated answer: 1
+2024-12-12 14:09:17,603 INFO - 127.0.0.1 - - [12/Dec/2024 14:09:17] "POST /query HTTP/1.1" 200 -
+2024-12-12 14:11:01,949 INFO - Received query: tell me how many deplyments?
+2024-12-12 14:11:01,951 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-12 14:11:01,951 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: tell me how many deplyments?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-12 14:11:01,952 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-12 14:11:01,954 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-12 14:11:02,760 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-12 14:11:02,770 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=357 request_id=req_6ee515e0c97321c0ab78265300363851 response_code=200
+2024-12-12 14:11:02,770 INFO - Inferred Command from Open AI: kubectl get deployments --no-headers | wc -l
+2024-12-12 14:11:02,770 INFO - Executing command: kubectl get deployments --no-headers | wc -l
+2024-12-12 14:11:03,042 INFO - Generated answer: 1
+2024-12-12 14:11:03,043 INFO - 127.0.0.1 - - [12/Dec/2024 14:11:03] "POST /query HTTP/1.1" 200 -
+2024-12-12 14:11:21,174 INFO - Received query: tell me deployments info?
+2024-12-12 14:11:21,175 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-12 14:11:21,175 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: tell me deployments info?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-12 14:11:21,176 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-12 14:11:21,177 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-12 14:11:21,718 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-12 14:11:21,720 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=234 request_id=req_923f209c3b2ddf94fce1259672e2bff7 response_code=200
+2024-12-12 14:11:21,721 INFO - Inferred Command from Open AI: kubectl get deployments
+2024-12-12 14:11:21,721 INFO - Executing command: kubectl get deployments
+2024-12-12 14:11:21,903 INFO - Generated answer: NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   1/1     1            1           3h25m
+2024-12-12 14:11:21,904 INFO - 127.0.0.1 - - [12/Dec/2024 14:11:21] "POST /query HTTP/1.1" 200 -
+2024-12-12 14:17:44,417 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-12 14:17:44,417 INFO - [33mPress CTRL+C to quit[0m
+2024-12-12 14:17:50,198 INFO - Received query: tell me deployments info?
+2024-12-12 14:17:50,199 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-12 14:17:50,199 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: tell me deployments info?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-12 14:17:50,200 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-12 14:17:50,201 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-12 14:17:50,844 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-12 14:17:50,847 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=273 request_id=req_b1e90b4764b00ed4607cefc4cc7d8ce9 response_code=200
+2024-12-12 14:17:50,847 INFO - Inferred Command from Open AI: kubectl get deployments
+2024-12-12 14:17:50,847 INFO - Executing command: kubectl get deployments
+2024-12-12 14:17:51,089 INFO - Generated answer: NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   1/1     1            1           3h31m
+2024-12-12 14:17:51,090 INFO - 127.0.0.1 - - [12/Dec/2024 14:17:51] "POST /query HTTP/1.1" 200 -
+2024-12-13 05:24:58,495 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-13 05:24:58,495 INFO - [33mPress CTRL+C to quit[0m
+2024-12-13 05:25:04,665 INFO - Received query: tell me deployments info?
+2024-12-13 05:25:04,670 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-13 05:25:04,670 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: tell me deployments info?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-13 05:25:04,672 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-13 05:25:04,677 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-13 05:25:05,525 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-13 05:25:05,530 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=289 request_id=req_6a225df7255fd22cfe2100bf09f2e7ca response_code=200
+2024-12-13 05:25:05,531 INFO - Inferred Command from Open AI: kubectl get deployments
+2024-12-13 05:25:05,531 INFO - Executing command: kubectl get deployments
+2024-12-13 05:25:05,773 INFO - Generated answer: NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   1/1     1            1           18h
+2024-12-13 05:25:05,780 INFO - 127.0.0.1 - - [13/Dec/2024 05:25:05] "POST /query HTTP/1.1" 200 -
+2024-12-13 05:29:54,387 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-13 05:29:54,387 INFO - [33mPress CTRL+C to quit[0m
+2024-12-13 05:31:37,489 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-13 05:31:37,490 INFO - [33mPress CTRL+C to quit[0m
+2024-12-13 05:31:42,560 INFO - Received query: tell me deployments info?
+2024-12-13 05:31:42,561 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-13 05:31:42,562 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: tell me deployments info?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-13 05:31:42,562 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-13 05:31:42,564 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-13 05:31:46,001 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-13 05:31:46,003 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=299 request_id=req_6d00c47c0b553126acb4e5c01040f3f9 response_code=200
+2024-12-13 05:31:46,004 INFO - Inferred Command from Open AI: kubectl get deployments
+2024-12-13 05:31:46,004 INFO - Executing command: kubectl get deployments
+2024-12-13 05:31:46,215 INFO - Generated answer: NAME    READY   UP-TO-DATE   AVAILABLE   AGE
+nginx   1/1     1            1           18h
+2024-12-13 05:31:46,218 INFO - 127.0.0.1 - - [13/Dec/2024 05:31:46] "POST /query HTTP/1.1" 200 -
+2024-12-13 05:31:56,767 INFO - Received query: tell me cluster info?
+2024-12-13 05:31:56,768 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-13 05:31:56,768 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: tell me cluster info?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-13 05:31:56,768 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-13 05:31:56,770 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-13 05:31:57,334 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-13 05:31:57,336 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=257 request_id=req_210fcd5d5deae8fb2cc1b82e7c83d0fa response_code=200
+2024-12-13 05:31:57,336 INFO - Inferred Command from Open AI: kubectl cluster-info
+2024-12-13 05:31:57,337 INFO - Executing command: kubectl cluster-info
+2024-12-13 05:31:57,549 INFO - Generated answer: Kubernetes control plane is running at https://127.0.0.1:59706
+CoreDNS is running at https://127.0.0.1:59706/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+2024-12-13 05:31:57,550 INFO - 127.0.0.1 - - [13/Dec/2024 05:31:57] "POST /query HTTP/1.1" 200 -
+2024-12-13 05:32:12,439 INFO - Received query: tell me number of clusters?
+2024-12-13 05:32:12,441 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-13 05:32:12,441 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: tell me number of clusters?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-13 05:32:12,441 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-13 05:32:12,443 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-13 05:32:13,601 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-13 05:32:13,605 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=362 request_id=req_7b459ae76f722b2d7316de7993fbcfd2 response_code=200
+2024-12-13 05:32:13,605 INFO - Inferred Command from Open AI: kubectl config get-clusters | wc -l
+2024-12-13 05:32:13,605 INFO - Executing command: kubectl config get-clusters | wc -l
+2024-12-13 05:32:13,789 INFO - Generated answer: 2
+2024-12-13 05:32:13,790 INFO - 127.0.0.1 - - [13/Dec/2024 05:32:13] "POST /query HTTP/1.1" 200 -
+2024-12-14 03:32:24,537 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-14 03:32:24,537 INFO - [33mPress CTRL+C to quit[0m
+2024-12-14 03:33:08,594 INFO - Received query: tell me number of clusters?
+2024-12-14 03:33:08,598 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 03:33:08,598 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: tell me number of clusters?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 03:33:08,603 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 03:33:08,615 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 03:33:10,029 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 03:33:10,035 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=940 request_id=req_f7e5b15124ac2257ca63335f4b7e976e response_code=200
+2024-12-14 03:33:10,036 INFO - Inferred Command from Open AI: kubectl config get-clusters | wc -l
+2024-12-14 03:33:10,036 INFO - Executing command: kubectl config get-clusters | wc -l
+2024-12-14 03:33:10,223 INFO - Generated answer: 2
+2024-12-14 03:33:10,227 INFO - 127.0.0.1 - - [14/Dec/2024 03:33:10] "POST /query HTTP/1.1" 200 -
+2024-12-14 07:23:00,843 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-14 07:23:00,843 INFO - [33mPress CTRL+C to quit[0m
+2024-12-14 07:23:05,097 INFO - Received query: tell me number of clusters?
+2024-12-14 07:23:05,102 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 07:23:05,102 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: tell me number of clusters?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 07:23:05,104 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 07:23:05,109 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 07:23:06,389 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 07:23:06,393 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=349 request_id=req_37735b338e65388d13f21b050d6685c9 response_code=200
+2024-12-14 07:23:06,393 INFO - Inferred Command from Open AI: kubectl config get-clusters | wc -l
+2024-12-14 07:23:06,394 INFO - Executing command: kubectl config get-clusters | wc -l
+2024-12-14 07:23:06,537 INFO - Generated answer: 2
+2024-12-14 07:23:06,540 INFO - 127.0.0.1 - - [14/Dec/2024 07:23:06] "POST /query HTTP/1.1" 200 -
+2024-12-14 09:49:47,734 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-14 09:49:47,734 INFO - [33mPress CTRL+C to quit[0m
+2024-12-14 09:50:28,692 INFO - Received query: What is the status of the nginx pod?
+2024-12-14 09:50:28,696 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 09:50:28,696 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: What is the status of the nginx pod?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 09:50:28,697 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 09:50:28,700 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 09:50:30,049 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 09:50:30,054 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=372 request_id=req_cf85ff2aa25994e8ee968b09b0093504 response_code=200
+2024-12-14 09:50:30,054 INFO - Inferred Command from Open AI: kubectl get pod nginx -o jsonpath='{.status.phase}'
+2024-12-14 09:50:30,054 INFO - Executing command: kubectl get pod nginx -o jsonpath='{.status.phase}'
+2024-12-14 09:50:30,300 DEBUG - Error executing command
+Traceback (most recent call last):
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/executor.py", line 15, in execute_command
+    result = subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.16/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'kubectl get pod nginx -o jsonpath='{.status.phase}'' returned non-zero exit status 1.
+2024-12-14 09:50:30,305 INFO - Generated answer: An Error occurred while executing the command
+2024-12-14 09:50:30,308 INFO - 127.0.0.1 - - [14/Dec/2024 09:50:30] "POST /query HTTP/1.1" 200 -
+2024-12-14 09:50:47,963 INFO - Received query: What is the status of the pod?
+2024-12-14 09:50:47,964 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 09:50:47,964 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: What is the status of the pod?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 09:50:47,965 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 09:50:47,968 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 09:50:49,339 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 09:50:49,341 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=543 request_id=req_b1f084226d7ac7312e6f885bc2d11396 response_code=200
+2024-12-14 09:50:49,342 INFO - Inferred Command from Open AI: kubectl get pods -o=jsonpath='{.items[*].status.phase}'
+2024-12-14 09:50:49,342 INFO - Executing command: kubectl get pods -o=jsonpath='{.items[*].status.phase}'
+2024-12-14 09:50:49,512 INFO - Generated answer: Running
+2024-12-14 09:50:49,514 INFO - 127.0.0.1 - - [14/Dec/2024 09:50:49] "POST /query HTTP/1.1" 200 -
+2024-12-14 09:51:04,606 INFO - Received query: What is the status of the nginx pod?
+2024-12-14 09:51:04,608 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 09:51:04,608 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: What is the status of the nginx pod?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 09:51:04,608 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 09:51:04,610 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 09:51:05,313 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 09:51:05,317 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=364 request_id=req_d085ba4125e533e55ec96435af8a570d response_code=200
+2024-12-14 09:51:05,317 INFO - Inferred Command from Open AI: kubectl get pod nginx -o jsonpath='{.status.phase}'
+2024-12-14 09:51:05,317 INFO - Executing command: kubectl get pod nginx -o jsonpath='{.status.phase}'
+2024-12-14 09:51:05,487 DEBUG - Error executing command
+Traceback (most recent call last):
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/executor.py", line 15, in execute_command
+    result = subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.16/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'kubectl get pod nginx -o jsonpath='{.status.phase}'' returned non-zero exit status 1.
+2024-12-14 09:51:05,487 INFO - Generated answer: An Error occurred while executing the command
+2024-12-14 09:51:05,488 INFO - 127.0.0.1 - - [14/Dec/2024 09:51:05] "POST /query HTTP/1.1" 200 -
+2024-12-14 09:51:20,799 INFO - Received query: Get logs for the my-app pod
+2024-12-14 09:51:20,799 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 09:51:20,799 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: Get logs for the my-app pod"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 09:51:20,800 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 09:51:20,801 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 09:51:21,845 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 09:51:21,848 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=263 request_id=req_a026fb133707b54470b431c09ec75e22 response_code=200
+2024-12-14 09:51:21,849 INFO - Inferred Command from Open AI: kubectl logs my-app
+2024-12-14 09:51:21,849 INFO - Executing command: kubectl logs my-app
+2024-12-14 09:51:21,999 DEBUG - Error executing command
+Traceback (most recent call last):
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/executor.py", line 15, in execute_command
+    result = subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.16/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'kubectl logs my-app' returned non-zero exit status 1.
+2024-12-14 09:51:21,999 INFO - Generated answer: An Error occurred while executing the command
+2024-12-14 09:51:22,000 INFO - 127.0.0.1 - - [14/Dec/2024 09:51:22] "POST /query HTTP/1.1" 200 -
+2024-12-14 09:51:37,619 INFO - Received query: Get logs for my pod
+2024-12-14 09:51:37,621 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 09:51:37,621 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: Get logs for my pod"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 09:51:37,622 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 09:51:37,624 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 09:51:38,190 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 09:51:38,193 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=256 request_id=req_345dbda1e78cb5dc1e84997b3181a162 response_code=200
+2024-12-14 09:51:38,193 INFO - Inferred Command from Open AI: kubectl logs pod/my-pod
+2024-12-14 09:51:38,193 INFO - Executing command: kubectl logs pod/my-pod
+2024-12-14 09:51:38,410 DEBUG - Error executing command
+Traceback (most recent call last):
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/executor.py", line 15, in execute_command
+    result = subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.16/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'kubectl logs pod/my-pod' returned non-zero exit status 1.
+2024-12-14 09:51:38,415 INFO - Generated answer: An Error occurred while executing the command
+2024-12-14 09:51:38,416 INFO - 127.0.0.1 - - [14/Dec/2024 09:51:38] "POST /query HTTP/1.1" 200 -
+2024-12-14 09:52:09,151 INFO - Received query: How many nodes are there in the cluster?
+2024-12-14 09:52:09,153 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 09:52:09,153 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: How many nodes are there in the cluster?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 09:52:09,154 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 09:52:09,156 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 09:52:10,033 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 09:52:10,035 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=339 request_id=req_4b160c477e79eaead1e961c92ad14f2d response_code=200
+2024-12-14 09:52:10,035 INFO - Inferred Command from Open AI: kubectl get nodes --no-headers | wc -l
+2024-12-14 09:52:10,036 INFO - Executing command: kubectl get nodes --no-headers | wc -l
+2024-12-14 09:52:10,246 INFO - Generated answer: 1
+2024-12-14 09:52:10,246 INFO - 127.0.0.1 - - [14/Dec/2024 09:52:10] "POST /query HTTP/1.1" 200 -
+2024-12-14 09:52:42,611 INFO - Received query: can you Delete the nginx pod? answer in yes or no
+2024-12-14 09:52:42,612 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 09:52:42,612 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: can you Delete the nginx pod? answer in yes or no"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 09:52:42,612 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 09:52:42,614 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 09:52:43,104 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 09:52:43,107 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=167 request_id=req_5ab35935569abf726ba3001527dfab5b response_code=200
+2024-12-14 09:52:43,107 INFO - Inferred Command from Open AI: No
+2024-12-14 09:52:43,107 INFO - Executing command: No
+2024-12-14 09:52:43,123 DEBUG - Error executing command
+Traceback (most recent call last):
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/executor.py", line 15, in execute_command
+    result = subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.16/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'No' returned non-zero exit status 127.
+2024-12-14 09:52:43,124 INFO - Generated answer: An Error occurred while executing the command
+2024-12-14 09:52:43,124 INFO - 127.0.0.1 - - [14/Dec/2024 09:52:43] "POST /query HTTP/1.1" 200 -
+2024-12-14 09:52:48,558 INFO - Received query: can you Delete the pod? answer in yes or no
+2024-12-14 09:52:48,559 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 09:52:48,559 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: can you Delete the pod? answer in yes or no"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 09:52:48,559 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 09:52:48,561 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 09:52:49,074 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 09:52:49,076 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=169 request_id=req_78bc4efe7b4be15d3d7e6c2f11ab8c79 response_code=200
+2024-12-14 09:52:49,076 INFO - Inferred Command from Open AI: No
+2024-12-14 09:52:49,076 INFO - Executing command: No
+2024-12-14 09:52:49,088 DEBUG - Error executing command
+Traceback (most recent call last):
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/executor.py", line 15, in execute_command
+    result = subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.16/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'No' returned non-zero exit status 127.
+2024-12-14 09:52:49,089 INFO - Generated answer: An Error occurred while executing the command
+2024-12-14 09:52:49,089 INFO - 127.0.0.1 - - [14/Dec/2024 09:52:49] "POST /query HTTP/1.1" 200 -
+2024-12-14 09:52:57,009 INFO - Received query: can you Delete a pod, answer in yes or no
+2024-12-14 09:52:57,010 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 09:52:57,010 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: can you Delete a pod, answer in yes or no"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 09:52:57,011 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 09:52:57,013 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 09:52:57,529 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 09:52:57,530 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=200 request_id=req_9bc72164fbd73fee17a4f973a6702326 response_code=200
+2024-12-14 09:52:57,531 INFO - Inferred Command from Open AI: No
+2024-12-14 09:52:57,531 INFO - Executing command: No
+2024-12-14 09:52:57,542 DEBUG - Error executing command
+Traceback (most recent call last):
+  File "/Users/ishanaggarwal/Downloads/query-agent-sample-main/executor.py", line 15, in execute_command
+    result = subprocess.run(command, shell=True, capture_output=True, text=True, check=True)
+  File "/opt/homebrew/Cellar/python@3.10/3.10.16/Frameworks/Python.framework/Versions/3.10/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'No' returned non-zero exit status 127.
+2024-12-14 09:52:57,543 INFO - Generated answer: An Error occurred while executing the command
+2024-12-14 09:52:57,543 INFO - 127.0.0.1 - - [14/Dec/2024 09:52:57] "POST /query HTTP/1.1" 200 -
+2024-12-14 09:53:13,348 INFO - Received query: Describe all services in kube-system namespace
+2024-12-14 09:53:13,350 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 09:53:13,350 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: Describe all services in kube-system namespace"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 09:53:13,351 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 09:53:13,353 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 09:53:13,984 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 09:53:13,985 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=280 request_id=req_41873d26c45afa636ed1a8101ca35c0d response_code=200
+2024-12-14 09:53:13,986 INFO - Inferred Command from Open AI: kubectl describe services --namespace kube-system
+2024-12-14 09:53:13,986 INFO - Executing command: kubectl describe services --namespace kube-system
+2024-12-14 09:53:14,178 INFO - Generated answer: Name:                     kube-dns
+Namespace:                kube-system
+Labels:                   k8s-app=kube-dns
+                          kubernetes.io/cluster-service=true
+                          kubernetes.io/name=CoreDNS
+Annotations:              prometheus.io/port: 9153
+                          prometheus.io/scrape: true
+Selector:                 k8s-app=kube-dns
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.96.0.10
+IPs:                      10.96.0.10
+Port:                     dns  53/UDP
+TargetPort:               53/UDP
+Endpoints:                10.244.0.5:53
+Port:                     dns-tcp  53/TCP
+TargetPort:               53/TCP
+Endpoints:                10.244.0.5:53
+Port:                     metrics  9153/TCP
+TargetPort:               9153/TCP
+Endpoints:                10.244.0.5:9153
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+2024-12-14 09:53:14,179 INFO - 127.0.0.1 - - [14/Dec/2024 09:53:14] "POST /query HTTP/1.1" 200 -
+2024-12-14 11:49:36,772 INFO - Received query: What is the status of the nginx-676b6c5bbc-7bzq4 pod
+2024-12-14 11:49:36,780 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 11:49:36,781 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: What is the status of the nginx-676b6c5bbc-7bzq4 pod"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 11:49:36,783 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 11:49:36,787 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 11:49:37,757 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 11:49:37,759 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=485 request_id=req_e51f30953da42e1f99a645c411605a0f response_code=200
+2024-12-14 11:49:37,759 INFO - Inferred Command from Open AI: kubectl get pod nginx-676b6c5bbc-7bzq4 -o=jsonpath='{.status.phase}'
+2024-12-14 11:49:37,760 INFO - Executing command: kubectl get pod nginx-676b6c5bbc-7bzq4 -o=jsonpath='{.status.phase}'
+2024-12-14 11:49:38,004 INFO - Generated answer: Running
+2024-12-14 11:49:38,008 INFO - 127.0.0.1 - - [14/Dec/2024 11:49:38] "POST /query HTTP/1.1" 200 -
+2024-12-14 11:50:17,328 INFO - 127.0.0.1 - - [14/Dec/2024 11:50:17] "[31m[1mPOST /query HTTP/1.1[0m" 400 -
+2024-12-14 11:50:25,438 INFO - Received query: What is the status of the nginx-676b6c5bbc-7bzq4 pod
+2024-12-14 11:50:25,439 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-14 11:50:25,439 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: What is the status of the nginx-676b6c5bbc-7bzq4 pod"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-14 11:50:25,440 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-14 11:50:25,442 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-14 11:50:26,214 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-14 11:50:26,526 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=455 request_id=req_6ddce575aad4ae1b809f10ab05453ef5 response_code=200
+2024-12-14 11:50:26,527 INFO - Inferred Command from Open AI: kubectl get pod nginx-676b6c5bbc-7bzq4 -o=jsonpath='{.status.phase}'
+2024-12-14 11:50:26,527 INFO - Executing command: kubectl get pod nginx-676b6c5bbc-7bzq4 -o=jsonpath='{.status.phase}'
+2024-12-14 11:50:26,687 INFO - Generated answer: Running
+2024-12-14 11:50:26,688 INFO - 127.0.0.1 - - [14/Dec/2024 11:50:26] "POST /query HTTP/1.1" 200 -
+2024-12-16 08:21:59,528 INFO - Received query: What is the status of the nginx-676b6c5bbc-7bzq4 pod
+2024-12-16 08:21:59,535 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-16 08:21:59,535 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: What is the status of the nginx-676b6c5bbc-7bzq4 pod"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-16 08:21:59,539 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-16 08:21:59,549 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-16 08:22:03,377 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-16 08:22:03,388 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=671 request_id=req_f82a5a2e38b8402c9259ec8bd9da06e2 response_code=200
+2024-12-16 08:22:03,388 INFO - Inferred Command from Open AI: kubectl get pod nginx-676b6c5bbc-7bzq4 -o=jsonpath='{.status.phase}'
+2024-12-16 08:22:03,388 INFO - Executing command: kubectl get pod nginx-676b6c5bbc-7bzq4 -o=jsonpath='{.status.phase}'
+2024-12-16 08:22:03,631 INFO - Generated answer: Running
+2024-12-16 08:22:03,637 INFO - 127.0.0.1 - - [16/Dec/2024 08:22:03] "POST /query HTTP/1.1" 200 -
+2024-12-18 02:18:24,114 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-18 02:18:24,114 INFO - [33mPress CTRL+C to quit[0m
+2024-12-18 02:18:28,807 INFO - Received query: What is the status of the nginx-676b6c5bbc-7bzq4 pod
+2024-12-18 02:18:28,816 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-18 02:18:28,816 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: What is the status of the nginx-676b6c5bbc-7bzq4 pod"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-18 02:18:28,824 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-18 02:18:28,830 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-18 02:18:30,429 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-18 02:18:30,433 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=498 request_id=req_248f168447374a6619aa51ffa6bfa63a response_code=200
+2024-12-18 02:18:30,434 INFO - Inferred Command from Open AI: kubectl get pod nginx-676b6c5bbc-7bzq4 -o jsonpath='{.status.phase}'
+2024-12-18 02:18:30,434 INFO - Executing command: kubectl get pod nginx-676b6c5bbc-7bzq4 -o jsonpath='{.status.phase}'
+2024-12-18 02:18:30,663 INFO - Generated answer: Running
+2024-12-18 02:18:30,667 INFO - 127.0.0.1 - - [18/Dec/2024 02:18:30] "POST /query HTTP/1.1" 200 -
+2024-12-18 02:21:13,090 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-18 02:21:13,090 INFO - [33mPress CTRL+C to quit[0m
+2024-12-18 02:23:40,298 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-18 02:23:40,298 INFO - [33mPress CTRL+C to quit[0m
+2024-12-18 02:29:58,315 INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.8:8000
+2024-12-18 02:29:58,315 INFO - [33mPress CTRL+C to quit[0m
+2024-12-18 02:30:08,449 INFO - Received query: What is the status of the nginx-676b6c5bbc-7bzq4 pod
+2024-12-18 02:30:08,453 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-18 02:30:08,453 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: What is the status of the nginx-676b6c5bbc-7bzq4 pod"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-18 02:30:08,454 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-18 02:30:08,455 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-18 02:30:09,405 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-18 02:30:09,409 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=474 request_id=req_ad8a63f574de9bc06917528ecef7e35f response_code=200
+2024-12-18 02:30:09,409 INFO - Inferred Command from Open AI: kubectl get pod nginx-676b6c5bbc-7bzq4 -o jsonpath='{.status.phase}'
+2024-12-18 02:30:09,409 INFO - Executing command: kubectl get pod nginx-676b6c5bbc-7bzq4 -o jsonpath='{.status.phase}'
+2024-12-18 02:30:09,592 INFO - Generated answer: Running
+2024-12-18 02:30:09,594 INFO - 127.0.0.1 - - [18/Dec/2024 02:30:09] "POST /query HTTP/1.1" 200 -
+2024-12-18 02:30:47,774 INFO - Received query: how many pods are active?
+2024-12-18 02:30:47,775 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-18 02:30:47,775 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: how many pods are active?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-18 02:30:47,776 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-18 02:30:47,778 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-18 02:30:48,584 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-18 02:30:48,589 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=487 request_id=req_8cba7279668848f83b4fbfcf0a4ec85d response_code=200
+2024-12-18 02:30:48,590 INFO - Inferred Command from Open AI: kubectl get pods --field-selector=status.phase=Running --no-headers | wc -l
+2024-12-18 02:30:48,590 INFO - Executing command: kubectl get pods --field-selector=status.phase=Running --no-headers | wc -l
+2024-12-18 02:30:48,815 INFO - Generated answer: 1
+2024-12-18 02:30:48,815 INFO - 127.0.0.1 - - [18/Dec/2024 02:30:48] "POST /query HTTP/1.1" 200 -
+2024-12-19 01:14:40,091 INFO - Received query: Which pod is spawned by my-deployment?
+2024-12-19 01:14:40,097 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-19 01:14:40,097 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: Which pod is spawned by my-deployment?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-19 01:14:40,100 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-19 01:14:40,106 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-19 01:14:41,361 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-19 01:14:41,368 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=750 request_id=req_b77ab09752ab50deee7cbebf137bef5e response_code=200
+2024-12-19 01:14:41,368 INFO - Inferred Command from Open AI: kubectl get pods -l app=my-deployment -o name
+2024-12-19 01:14:41,369 INFO - Executing command: kubectl get pods -l app=my-deployment -o name
+2024-12-19 01:14:42,122 INFO - Generated answer: 
+2024-12-19 01:14:42,127 INFO - 127.0.0.1 - - [19/Dec/2024 01:14:42] "POST /query HTTP/1.1" 200 -
+2024-12-19 01:15:17,959 INFO - Received query: How many nodes are there in the cluster?
+2024-12-19 01:15:17,961 DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/chat/completions
+2024-12-19 01:15:17,961 DEBUG - api_version=None data='{"model": "gpt-4o-mini-2024-07-18", "messages": [{"role": "system", "content": [{"type": "text", "text": "You are an expert Kubernetes assistant. Translate user queries into valid kubectl commands.Rules you must follow at any cost : 1. Only give the command output as plain text. Do not wrap it in ``` or anything other block.2. Do not generate any commands other than read operations.3. When asked for status, give the running status instead of full status4. If namespace is not specified, use the default5. for service, use service/<name>6. <strong>Dont use --short flag in generated commands. For example: if you are generating cmds like \'kubectl version --short\', then remove the --short flag i.e. \'kubectl version\'</strong>"}]}, {"role": "user", "content": [{"type": "text", "text": "Query: How many nodes are there in the cluster?"}]}], "response_format": {"type": "text"}, "temperature": 0, "max_tokens": 200, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}' message='Post details'
+2024-12-19 01:15:17,961 DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2024-12-19 01:15:17,963 DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2024-12-19 01:15:18,658 DEBUG - https://api.openai.com:443 "POST /v1/chat/completions HTTP/11" 200 None
+2024-12-19 01:15:18,661 DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/chat/completions processing_ms=385 request_id=req_a9ca557004a52fe30cb3616d73e85c87 response_code=200
+2024-12-19 01:15:18,662 INFO - Inferred Command from Open AI: kubectl get nodes --no-headers | wc -l
+2024-12-19 01:15:18,662 INFO - Executing command: kubectl get nodes --no-headers | wc -l
+2024-12-19 01:15:18,829 INFO - Generated answer: 1
+2024-12-19 01:15:18,830 INFO - 127.0.0.1 - - [19/Dec/2024 01:15:18] "POST /query HTTP/1.1" 200 -
