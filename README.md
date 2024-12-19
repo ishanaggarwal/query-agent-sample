@@ -73,7 +73,7 @@ Send a POST request to the `/query` endpoint with a JSON payload containing your
 
 ## **Architecture/Design**
 
-The system is built with a modular architecture for extensibility and maintainability.
+The system is built with a modular architecture for extensibility, Scalability and maintainability.
 ---
 
 ![Architecture Diagram](k8sArchitecture.png)
@@ -91,10 +91,10 @@ The system is built with a modular architecture for extensibility and maintainab
    - Tracks all queries, commands, and responses in `agent.log`.
 ---
 ## **Advantages of This Architecture**
-- **Separation of Concerns**:
-  - Each service (REST API, OpenAI client, and execution service) is isolated, improving scalability.
+- **Separation of Responsibity**:
+  - Each service (REST API, OpenAI client, and execution service) has a defined contract and a responsibility/task to execute, improving maintainability of the system.
 - **Scalability**:
-  - Additional services like caching or authentication can be added seamlessly.
+  - Because of a micro sevice like architecture, we can assume this runs on cloud, we can scale individual service according to load pattens and bottlenecks
 - **Logging and Debugging**:
   - Detailed logs in `agent.log` provide transparency and easy debugging.
 
@@ -119,13 +119,10 @@ The system is built with a modular architecture for extensibility and maintainab
    - If GPT-4 generates an invalid command, implement feedback loops to regenerate correct commands.
 5. **Caching Layer**:
    - Integrate a caching mechanism to reduce OpenAI API calls for frequently used queries.
-     - **Advantage**: Cost savings.
-     - **Disadvantage**: Managing cache consistency.
+     - **Advantage**: Cost savings and better performance.
+     - **Challenges**: Managing cache consistency.
 6. **Enhanced Resiliency**:
    - Add failover strategies and fallback mechanisms for better error handling.
-
----
-
 
 
 ---
