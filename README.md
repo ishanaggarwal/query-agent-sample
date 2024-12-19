@@ -139,7 +139,7 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 
 
 
-# Cleric Query Agent Assignment
+# **Cleric Query Agent Assignment**
 
 ## Introduction
 This document outlines the requirements and guidelines for the Cleric Query Agent Assignment. Your task is to develop an AI agent capable of accurately answering queries about applications deployed on a Kubernetes cluster.
