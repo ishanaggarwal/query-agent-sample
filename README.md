@@ -134,10 +134,8 @@ The system is built with a modular architecture for extensibility and maintainab
 This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
 ---
-```
 
-
-
+## **Instructions:
 
 # **Cleric Query Agent Assignment**
 
