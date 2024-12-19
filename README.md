@@ -88,10 +88,16 @@ The system is built with a modular architecture for extensibility and maintainab
    - Executes the generated `kubectl` commands and fetches results.
 4. **Logging**:
    - Tracks all queries, commands, and responses in `agent.log`.
+---
+## **Advantages of This Architecture**
+- **Separation of Concerns**:
+  - Each service (REST API, OpenAI client, and execution service) is isolated, improving scalability.
+- **Scalability**:
+  - Additional services like caching or authentication can be added seamlessly.
+- **Logging and Debugging**:
+  - Detailed logs in `agent.log` provide transparency and easy debugging.
 
-
-
-
+---
 
 ## **Some Benefits**
 - **Ease of Use**: No need to memorize complex `kubectl` commands.
@@ -119,13 +125,7 @@ The system is built with a modular architecture for extensibility and maintainab
 
 ---
 
-## **Advantages of This Architecture**
-- **Separation of Concerns**:
-  - Each service (REST API, OpenAI client, and execution service) is isolated, improving scalability.
-- **Scalability**:
-  - Additional services like caching or authentication can be added seamlessly.
-- **Logging and Debugging**:
-  - Detailed logs in `agent.log` provide transparency and easy debugging.
+
 
 ---
 
@@ -135,7 +135,6 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 ---
 ```
 
-This markdown content is ready to be pasted into your `README.md` file. Let me know if you'd like to refine it further!
 
 
 
