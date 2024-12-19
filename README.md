@@ -91,10 +91,10 @@ The system is built with a modular architecture for extensibility, Scalability a
    - Tracks all queries, commands, and responses in `agent.log`.
 ---
 ## **Advantages of This Architecture**
-- **Separation of Responsibity**:
+- **Separation of Responsibility**:
   - Each service (REST API, OpenAI client, and execution service) has a defined contract and a responsibility/task to execute, improving maintainability of the system.
 - **Scalability**:
-  - Because of a micro sevice like architecture, we can assume this runs on cloud, we can scale individual service according to load pattens and bottlenecks
+  - Because of a micro sevice like architecture, we can assume when this runs on cloud, we can scale individual service according to load pattens and bottlenecks
 - **Logging and Debugging**:
   - Detailed logs in `agent.log` provide transparency and easy debugging.
 
