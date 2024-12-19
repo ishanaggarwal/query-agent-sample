@@ -72,6 +72,7 @@ Send a POST request to the `/query` endpoint with a JSON payload containing your
 ---
 
 ## **Architecture/Design**
+
 The system is built with a modular architecture for extensibility and maintainability.
 ---
 
