@@ -1,3 +1,80 @@
 requests
-Flask
-pydantic
+Flask==3.1.0
+pydantic==2.10.3
+openai==1.57.2
+requests==2.31.0
+
+
+---
+
+### **Setup Steps**
+1. **Install Python 3.10**  
+   Ensure you have Python 3.10 installed. You can verify by running:
+   ```bash
+   python3.10 --version
+   ```
+
+2. **Set Up Virtual Environment**  
+   Create and activate a virtual environment to manage dependencies:
+   ```bash
+   python3.10 -m venv venv
+   source venv/bin/activate  # On Linux/Mac
+   .\venv\Scripts\activate  # On Windows
+   ```
+
+3. **Install Required Python Libraries**  
+   Install all required Python libraries from the `requirements.txt` file:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Install Minikube**  
+   Minikube is required to set up a local Kubernetes cluster. Follow these steps:
+   - **Install Minikube**:
+     ```bash
+     brew install minikube  # On Mac
+     sudo apt-get install minikube  # On Linux
+     ```
+   - **Start Minikube**:
+     ```bash
+     minikube start
+     ```
+
+5. **Install Kubernetes CLI (kubectl)**  
+   Install `kubectl` to interact with the Kubernetes cluster:
+   ```bash
+   brew install kubectl  # On Mac
+   sudo apt-get install -y kubectl  # On Linux
+   ```
+
+6. **Get OpenAI API Key**  
+   - Obtain an API key from [OpenAI](https://platform.openai.com/signup/).
+   - Set it as an environment variable:
+     ```bash
+     export OPENAI_API_KEY=<your-api-key>
+     ```
+
+7. **Start the Server**  
+   Run the main server script to start the Flask app:
+   ```bash
+   python main.py
+   ```
+
+8. **Test the API**  
+   Use tools like `Postman` or `curl` to test the `/query` endpoint:
+   ```bash
+   curl -X POST http://localhost:8000/query -H "Content-Type: application/json" -d '{"query": "How many pods are in the default namespace?"}'
+   ```
+
+---
+
+### **Development Tools (used by me)**
+- **Postman**: To test the API endpoints.
+- **VSCode or PyCharm**: For efficient development and debugging.
+- **Docker**: To containerize the application (optional for future improvements).
+
+---
+
+### **Other Notes**
+- Ensure that `~/.kube/config` exists and is properly configured to connect to your Kubernetes cluster.
+- All logs will be stored in `agent.log`. You can monitor this file for debugging or issue tracking.
