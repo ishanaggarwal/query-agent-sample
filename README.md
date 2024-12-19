@@ -76,7 +76,7 @@ Send a POST request to the `/query` endpoint with a JSON payload containing your
 The system is built with a modular architecture for extensibility, Scalability and maintainability.
 ---
 
-![Architecture Diagram](k8sArchitecture.png)
+![Architecture Diagram](assests/k8sArchitecture.png)
 
 ---
 ### **Components**
