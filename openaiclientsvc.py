@@ -15,14 +15,16 @@ def infer_kubectl_command_with_gpt4(query):
                 "2. **Command Scope**: Generate only 'read' commands, such as 'kubectl get', 'kubectl describe', or similar.\n"
                 "3. **Default Namespace**: If the query does not specify a namespace, assume 'default'.\n"
                 "4. **Status Queries**: For queries about pod or deployment status, return only the 'Running' status or a top-level summary without detailed YAML output.\n"
-                "5. **Service Naming**: Use 'service/<name>' when referring to services.\n"
-                "6. **No Abbreviations**: Avoid using flags like '--short'. Provide the full command explicitly.\n"
-                "7. **Logs**: For logs, use 'kubectl logs <pod_name>'. If the container is not specified, assume the first container in the pod.\n"
-                "8. **Pod Names as App Names**: Whenever the user wants to list pods, display app names instead of pod names. Use the following command structure:\n"
-                "   'kubectl get pods -o custom-columns=NAME:.metadata.labels.app --no-headers -n <namespace>'\n"
-                "   Replace <namespace> with the relevant namespace, or use 'default' if not specified.\n\n"
-                "Always validate the context of the query and ensure compliance with these rules."
+                "5. **pod names**: for queries about pods, the input name might be the app name. so to get pods by app name, for example use: kubectl get pods -n default -l app=app_name"
+                "6. **Service Naming**: Use 'service/<name>' when referring to services.\n"
+                "7. **No Abbreviations**: Avoid using flags like '--short'. Provide the full command explicitly.\n"
+                "7. **Logs**: For logs, use 'kubectl logs <pod_name>'. If the container is not specified, assume the first container in the pod.\n" 
+                "8. dont search for servces/deployments/pods by name across all namespaces "
+                "9. when finding a  specific property like namespace for servces/deployments/pods by name, use custom columns only for that property and add a --no-headers"
+                "for example: when finding a namespace for a service named temp, the kubectl cmd would be 'kubectl get service/nginx -o custom-columns=""NAMESPACE:.metadata.namespace"" --no-headers'"
+                
             ),
+
 
         },
         {
