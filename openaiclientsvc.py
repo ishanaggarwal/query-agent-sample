@@ -18,7 +18,7 @@ def infer_kubectl_command_with_gpt4(query):
                 "5. **Service Naming**: Use 'service/<name>' when referring to services.\n"
                 "6. **No Abbreviations**: Avoid using flags like '--short'. Provide the full command explicitly.\n"
                 #"7. **Invalid Queries**: If the query is unrelated to Kubernetes or cannot be processed, return "
-                "'Error: Unable to generate kubectl command'.\n"
+                #"'Error: Unable to generate kubectl command'.\n"
                 "8. **Logs**: For logs, use 'kubectl logs <pod_name>'. If the container is not specified, assume the first container in the pod.\n"
                 "9. **Pod Names as App Names**: Whenever the user wants to list pods, display app names instead of pod names. Use the following command structure:\n"
                 "   'kubectl get pods -o custom-columns=NAME:.metadata.labels.app --no-headers -n <namespace>'\n"
