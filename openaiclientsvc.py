@@ -22,8 +22,6 @@ def infer_kubectl_command_with_gpt4(query):
                 "8. dont search for servces/deployments/pods by name across all namespaces "
                 "9. when finding a  specific property like namespace for servces/deployments/pods by name, use custom columns only for that property and add a --no-headers. example: user query-'Which namespace is the nginx service deployed to?' expected output-'kubectl get service/nginx -o custom-columns=NAMESPACE:.metadata.namespace --no-headers'"                
             ),
-
-
         },
         {
             "role": "user",
