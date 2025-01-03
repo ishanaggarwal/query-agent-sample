@@ -1,6 +1,7 @@
 import logging
-from flask import Flask, request, jsonify
 from pydantic import BaseModel, ValidationError
+from flask import Flask, request, jsonify
+
 from coreenginesvc import handle_query
 
 # Configure logging
@@ -32,7 +33,7 @@ def create_query():
 
         # Create the response model
         response = QueryResponse(query=query, answer=answer)
-        return jsonify(response.model_dump())
+        return jsonify(response.dict())
 
     except ValidationError as e:
         logging.error(f"Validation error: {e}")
